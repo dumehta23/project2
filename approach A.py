@@ -21,11 +21,21 @@ def read_input(file_path):
     inputs = []
     with open(file_path, 'r') as file:
         lines = [line.strip() for line in file.readlines() if line.strip()]
-        for i in range(0, len(lines), 3):
+
+        i = 0
+        while i < len(lines):
             N = int(lines[i])
-            Stocks_and_values = eval(lines[i + 1])
-            Amount = int(lines[i + 2])
-            inputs.append((N, Stocks_and_values, Amount))
+            i += 1
+
+            stocks_and_values_str = lines[i][2:-2]  # Removing square brackets and extra characters
+            stocks_and_values = [list(map(int, pair.split(', '))) for pair in stocks_and_values_str.split('], [')]
+            i += 1
+
+            Amount = int(lines[i])
+            i += 1
+
+            inputs.append((N, stocks_and_values, Amount))
+
     return inputs
 
 
