@@ -1,6 +1,5 @@
 # CSPC 335 Project 2 
 # Project 2: Exhaustive vs. Dynamic Programming
-# Fall 2023 CPSC 335.02/CPSC 335.09 - Algorithm Engineering
 
 # Group memeber names:
 Name: Drashti Mehta 
