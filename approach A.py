@@ -17,27 +17,33 @@ def maximize_stocks_within_budget(N, Stocks_and_values, Amount):
     return max_count
 
 
-def process_input_file(input_filename, output_filename):
-    with open(input_filename, 'r') as input_file, open(output_filename, 'w') as output_file:
-        # Read the number of test cases
-        num_test_cases = int(input_file.readline().strip())
-
-        for _ in range(num_test_cases):
-            # Read N (size of items)
-            N = int(input_file.readline().strip())
-
-            # Read Stocks_and_values (list of items)
-            Stocks_and_values = [list(map(int, input_file.readline().strip()[1:-1].split(', '))) for _ in range(N)]
-
-            # Read Amount (budget)
-            Amount = int(input_file.readline().strip())
-
-            # Call the function and write the result to the output file
-            result = maximize_stocks_within_budget(N, Stocks_and_values, Amount)
-            output_file.write(str(result) + '\n')
+def read_input(file_path):
+    inputs = []
+    with open(file_path, 'r') as file:
+        lines = [line.strip() for line in file.readlines() if line.strip()]
+        for i in range(0, len(lines), 3):
+            N = int(lines[i])
+            Stocks_and_values = eval(lines[i + 1])
+            Amount = int(lines[i + 2])
+            inputs.append((N, Stocks_and_values, Amount))
+    return inputs
 
 
-# Example usage
-input_filename = 'approachA_inputs.txt'
-output_filename = 'approachA_outputs.txt'
-process_input_file(input_filename, output_filename)
+def write_output(file_path, results):
+    with open(file_path, 'w') as file:
+        for result in results:
+            file.write(f"{result}\n")
+
+
+if __name__ == "__main__":
+    input_file_path = "approachA_inputs.txt"
+    output_file_path = "approachA_output.txt"
+
+    inputs = read_input(input_file_path)
+    results = []
+
+    for input_data in inputs:
+        result = maximize_stocks_within_budget(*input_data)
+        results.append(result)
+
+    write_output(output_file_path, results)
