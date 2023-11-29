@@ -22,3 +22,29 @@ def maximize_stocks_within_budget(N, Stocks_and_values, Amount):
 
     return dp(0, Amount)
 
+
+def read_input(file_path):
+    inputs = []
+    with open(file_path, 'r') as file:
+        lines = [line.strip() for line in file.readlines() if line.strip()]
+        for i in range(0, len(lines), 3):
+            N = int(lines[i])
+            stocks_and_values_str = lines[i + 1][2:-2]  # Removing square brackets and extra characters
+            stocks_and_values = [list(map(int, pair.split(', '))) for pair in stocks_and_values_str.split('], [')]
+            Amount = int(lines[i + 2])
+            inputs.append((N, stocks_and_values, Amount))
+    return inputs
+
+
+def write_output(file_path, results):
+    with open(file_path, 'w') as file:
+        for result in results:
+            file.write(f"{result}\n")
+
+
+input_file_path = 'approachB_inputs.txt'
+output_file_path = 'approachB_output.txt'
+
+inputs = read_input(input_file_path)
+results = [maximize_stocks_within_budget(*input_data) for input_data in inputs]
+write_output(output_file_path, results)
